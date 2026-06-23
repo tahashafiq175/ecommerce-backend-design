@@ -27,6 +27,7 @@ public class ProductDetailController {
         List<ProductDetails> allDetails = productDetailService.getAllDetails(category);
         return allDetails;
     }
+
     @PostMapping("/postDetail/{category}")
     public ResponseEntity addProductDetails(@RequestBody ProductDetails productDetails, @PathVariable String category){
         productDetailService.saveUserDetails(productDetails);
@@ -39,3 +40,5 @@ public class ProductDetailController {
         return ResponseEntity.ok().build();
     }
 }
+
+

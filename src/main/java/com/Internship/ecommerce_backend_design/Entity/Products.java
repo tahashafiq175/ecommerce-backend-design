@@ -22,4 +22,5 @@ public class Products {
     private ObjectId Id;
     @DBRef
     private List<ProductDetails> productDetailsList=new ArrayList<>();
+    String image;
 }

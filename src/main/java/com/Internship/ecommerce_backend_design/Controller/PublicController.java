@@ -27,10 +27,10 @@ UserService userService;
         System.out.println("PUBLIC CONTROLLER CREATED");
     }
     @PostMapping("/signup")
-    public String signup(@RequestBody User user){
+    public ResponseEntity signup(@RequestBody User user){
         System.out.println("signup");
         userService.saveUser(user);
-        return "taha is awesome";
+        return ResponseEntity.ok().build() ;
     }
     @PostMapping("login")
     public ResponseEntity<String> login(@RequestBody User user){
