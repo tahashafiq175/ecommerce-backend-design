@@ -19,18 +19,20 @@ public class ProductDetailService {
         List<ProductDetails> all = productDetailRepository.findAll();
         return all;
     }
-    public List<ProductDetails> getAllDetails(String category) {
-        List<ProductDetails> all = productDetailRepository.findAllByCategory(category);
-        return all;
+
+    public Optional<ProductDetails> getDetailsbyId(ObjectId Id) {
+        Optional<ProductDetails> byId = productDetailRepository.findAllById(Id);
+        if(!byId.isEmpty()){
+            return byId;
+        }
+        return null;
     }
-    public void saveUserDetails(ProductDetails productDetails) {
+
+    public void saveProductDetails(ProductDetails productDetails) {
         productDetailRepository.save(productDetails);
     }
 
     public void deleteUser(ObjectId id) {
-        Optional<ProductDetails> detail=productDetailRepository.findById(id);
-        String name = detail.get().getCategory();
-        productService.deleteDetail(name, detail.orElse(null));
         productDetailRepository.deleteById(id);
     }
 }

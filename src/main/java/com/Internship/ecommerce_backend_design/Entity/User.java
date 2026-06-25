@@ -21,7 +21,5 @@ public class User {
     String userName;
     String password;
     String email;
-    @DBRef
-    List<ProductDetails> productDetails=new ArrayList<ProductDetails>();
     private List<String> roles;
 }

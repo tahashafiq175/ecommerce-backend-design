@@ -27,6 +27,12 @@ public class ProductService {
         byCategory.getProductDetailsList().add(productDetails);
         productRepository.save(byCategory);
     }
+    public List<ProductDetails> getByCategory(String category){
+        Products byCategory = productRepository.findByCategory(category);
+        List<ProductDetails> productDetailsList = byCategory.getProductDetailsList();
+        return productDetailsList;
+    }
+
     @Transactional
     public void deleteDetail(String name,ProductDetails productDetail){
         Products product=productRepository.findByCategory(name);
@@ -42,4 +48,5 @@ public class ProductService {
     public void saveCategory(Products product) {
         productRepository.save(product);
     }
+
 }

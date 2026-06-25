@@ -19,9 +19,9 @@ public class ProductDetails {
     @Id
     private ObjectId id;
     private String name;
-    private int price;
+    private Integer price;
     private String category;
     private String description;
     private List<String> images;
-    private int stock;
+    private Integer stock;
 }

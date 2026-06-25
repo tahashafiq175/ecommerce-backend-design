@@ -1,10 +1,13 @@
 package com.Internship.ecommerce_backend_design.Controller;
 
+import com.Internship.ecommerce_backend_design.Dto.LogInDto;
+import com.Internship.ecommerce_backend_design.Dto.SignUpDto;
 import com.Internship.ecommerce_backend_design.Entity.User;
 import com.Internship.ecommerce_backend_design.Service.UserService;
 import com.Internship.ecommerce_backend_design.Utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.AccessType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,16 +30,19 @@ UserService userService;
         System.out.println("PUBLIC CONTROLLER CREATED");
     }
     @PostMapping("/signup")
-    public ResponseEntity signup(@RequestBody User user){
-        System.out.println("signup");
-        userService.saveUser(user);
-        return ResponseEntity.ok().build() ;
+    public ResponseEntity<?> signup(@RequestBody SignUpDto user){
+        User newUser=new User();
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(user.getPassword());
+        newUser.setPassword(user.getPassword());
+        userService.saveUser(newUser);
+        return new ResponseEntity<>(HttpStatus.CREATED) ;
     }
     @PostMapping("login")
-    public ResponseEntity<String> login(@RequestBody User user){
+    public ResponseEntity<?> login(@RequestBody LogInDto user){
         authenticationManager.authenticate(new
                 UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword()));
-        String s = jwtUtils.generateToken(user.getUserName());
-        return ResponseEntity.ok(s);
+        String token = jwtUtils.generateToken(user.getUserName());
+        return new ResponseEntity<>(token,HttpStatus.OK);
     }
 }

@@ -4,12 +4,15 @@ import com.Internship.ecommerce_backend_design.Entity.ProductDetails;
 import com.Internship.ecommerce_backend_design.Entity.Products;
 import com.Internship.ecommerce_backend_design.Service.ProductDetailService;
 import com.Internship.ecommerce_backend_design.Service.ProductService;
+import org.apache.coyote.Response;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/ProductDetail")
@@ -19,25 +22,24 @@ public class ProductDetailController {
     @Autowired
     private ProductService productService;
     @GetMapping("/getAllDetails")
-    public List<ProductDetails> getAllProducts(){
-        return productDetailService.getAllDetails();
-    }
-    @GetMapping("/getAllDetails/{category}")
-    public List<ProductDetails> getAllProductsByCategory(@PathVariable String category){
-        List<ProductDetails> allDetails = productDetailService.getAllDetails(category);
-        return allDetails;
+    public ResponseEntity<?> getAllProducts()
+    {
+        List<ProductDetails> allDetails = productDetailService.getAllDetails();
+        if(!allDetails.isEmpty()){
+            return new ResponseEntity<>(allDetails,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/postDetail/{category}")
-    public ResponseEntity addProductDetails(@RequestBody ProductDetails productDetails, @PathVariable String category){
-        productDetailService.saveUserDetails(productDetails);
-        productService.saveProduct(productDetails,category);
-        return ResponseEntity.ok().build();
-    }
-    @DeleteMapping("/DeleteDetail/{Id}")
-    public ResponseEntity deleteProductDetails(@PathVariable ObjectId Id){
-        productDetailService.deleteUser(Id);
-        return ResponseEntity.ok().build();
+    @GetMapping("/getDetailsById/{Id}")
+    public ResponseEntity<?> getAllProductsByCategory(@PathVariable ObjectId Id){
+        Optional<ProductDetails> getDetailById = productDetailService.getDetailsbyId(Id);
+        if(!getDetailById.isEmpty()) {
+            ProductDetails productDetails = getDetailById.get();
+            return new ResponseEntity<>(productDetails, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
     }
 }
 
