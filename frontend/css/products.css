@@ -1,123 +1,341 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 
 *{
+    margin:0;
+    padding:0;
     box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
+
 
 body{
-
-    font-family:Arial,sans-serif;
-    background:#f5f5f5;
-    padding:30px;
-
+    background:#f4f6f9;
+    padding:40px;
 }
+
+
+/* Title */
+
 h1{
-
     text-align:center;
-
+    color:#1f2937;
+    margin-bottom:45px;
+    font-size:40px;
 }
+
+
+h1::after{
+    content:"";
+    width:90px;
+    height:4px;
+    background:#2563eb;
+    display:block;
+    margin:12px auto;
+    border-radius:10px;
+}
+
+
+
+/* Products Grid */
+
 #products{
 
-    display:flex;
-    flex-direction:column;
+    width:90%;
+    max-width:1200px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
     gap:30px;
-    align-items:center;
 
 }
-.card{
 
-    width:900px;
-    height:600px;
+
+
+/* Card */
+
+.card{
 
     background:white;
 
     border-radius:20px;
 
-    display:flex;
-
     overflow:hidden;
 
-    box-shadow:
-    0 8px 20px rgba(0,0,0,0.15);
+    display:flex;
+
+    min-height:260px;
 
     cursor:pointer;
 
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
 }
+
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 18px 40px rgba(37,99,235,.2);
+}
+
+
+
+/* Left content */
+
 
 .product-info{
 
     width:60%;
 
-    padding:20px;
+    padding:25px;
 
     display:flex;
+
     flex-direction:column;
 
+    justify-content:center;
+
 }
-.main-image{
+
+
+.product-info img{
 
     width:100%;
-    height:260px;
 
-    
-
-    border-radius:15px;
-
-}
-.card h2{
-
-    margin-top:20px;
-
-}
-
-
-.price{
-
-    color:green;
-
-    font-size:24px;
-
-    font-weight:bold;
-
-}
-
-
-.description{
-
-    color:#555;
-
-}
-
-
-
-.stock{
-
-    color:#777;
-
-}
-.side-image{
-
-    width:40%;
-
-    height:100%;
+    height:140px;
 
     object-fit:cover;
 
+    border-radius:15px;
+
+    margin-bottom:10px;
+
 }
 
 
 
-button{
+.product-info h2{
 
-    margin-top:auto;
+    font-size:22px;
 
-    padding:12px;
+    color:#1e3a8a;
+
+    margin-bottom:8px;
+
+}
+
+
+.product-info h3{
+
+    color:#16a34a;
+
+    font-size:20px;
+
+    margin-bottom:10px;
+
+}
+
+
+.product-info p{
+
+    color:#555;
+
+    font-size:14px;
+
+    margin-bottom:8px;
+
+}
+
+
+
+/* Button */
+
+
+.product-info button{
+
+    width:130px;
+
+    margin-top:10px;
+
+    padding:10px;
 
     border:none;
 
     border-radius:10px;
 
-    background:#111;
+    background:#2563eb;
 
     color:white;
+
+    cursor:pointer;
+
+}
+
+
+
+.product-info button:hover{
+
+    background:#1d4ed8;
+}
+
+
+
+
+
+/* Right Image */
+
+
+.side-image{
+
+    width:40%;
+
+    background:#eef2ff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:15px;
+
+}
+
+
+
+.side-image img{
+
+    width:100%;
+
+    height:370px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    transition:.3s;
+}
+
+
+
+.card:hover .side-image img{
+
+    transform:scale(1.05);
+
+}
+
+
+
+
+
+/* ======================
+      TABLET
+====================== */
+
+
+@media(max-width:1000px){
+
+
+#products{
+
+    grid-template-columns:1fr;
+
+    width:80%;
+}
+
+
+
+.card{
+
+    min-height:280px;
+}
+
+
+}
+
+
+
+
+/* ======================
+      MOBILE
+====================== */
+
+
+@media(max-width:600px){
+
+
+body{
+
+    padding:20px;
+
+}
+
+
+h1{
+
+    font-size:30px;
+
+}
+
+
+
+#products{
+
+    width:100%;
+
+}
+
+
+
+.card{
+
+    flex-direction:column;
+
+}
+
+
+
+.product-info{
+
+    width:100%;
+
+}
+
+
+
+.product-info img{
+
+    height:200px;
+
+}
+
+
+
+.side-image{
+
+    width:100%;
+
+    height:220px;
+
+}
+
+
+
+.side-image img{
+
+    height:190px;
+
+}
+
 
 }

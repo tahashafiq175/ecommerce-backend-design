@@ -1,77 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>User Login</title>
+
+    <link rel="stylesheet" href="css/login.css">
+
+</head>
+
 
 <body>
 
-<h2>Login</h2>
 
-<input id="username" placeholder="Username">
+<!-- Admin Login Button -->
 
-<input id="password" type="password" placeholder="Password">
+<button class="admin-btn"
+        onclick="window.location.href='admin-login.html'">
 
-<button onclick="login()">Login</button>
+    Admin Login
 
-
-<script>
-
-async function login(){
+</button>
 
 
-const user={
 
-userName: document.getElementById("username").value,
+<!-- User Login Card -->
 
-password: document.getElementById("password").value
-
-};
+<div class="login-container">
 
 
-try{
+    <h1>
+        E-Commerce Store
+    </h1>
 
 
-let res = await fetch(
-"http://127.0.0.1:8080/Public/login",
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify(user)
-});
-
-if(!res.ok){
-
-alert("Login failed");
-return;
-
-}
+    <h2>
+        User Login
+    </h2>
 
 
-const token = await res.text();
+
+    <input
+        type="text"
+        id="username"
+        placeholder="Username">
 
 
-console.log("JWT:", token);
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Password">
 
 
-localStorage.setItem("token", token);
+
+    <button
+        class="login-btn"
+        onclick="login()">
+
+        Login
+
+    </button>
 
 
-window.location.href="./categories.html";
+
+</div>
 
 
-}catch(error){
 
-console.log("ERROR:", error);
-
-alert(error.message);
-
-}
-
-
-}
-
-</script>
+<script src="js/login.js"></script>
 
 
 </body>
+
 </html>

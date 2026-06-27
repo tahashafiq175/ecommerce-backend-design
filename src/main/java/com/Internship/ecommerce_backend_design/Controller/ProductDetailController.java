@@ -21,6 +21,7 @@ public class ProductDetailController {
     private ProductDetailService productDetailService;
     @Autowired
     private ProductService productService;
+
     @GetMapping("/getAllDetails")
     public ResponseEntity<?> getAllProducts()
     {
@@ -31,16 +32,17 @@ public class ProductDetailController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/getDetailsById/{Id}")
+    @GetMapping("/getDetailsfById/{Id}")
     public ResponseEntity<?> getAllProductsByCategory(@PathVariable ObjectId Id){
         Optional<ProductDetails> getDetailById = productDetailService.getDetailsbyId(Id);
         if(!getDetailById.isEmpty()) {
             ProductDetails productDetails = getDetailById.get();
+
             return new ResponseEntity<>(productDetails, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
     }
 }
+
 
 

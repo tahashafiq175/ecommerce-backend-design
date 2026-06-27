@@ -20,7 +20,9 @@ private UserRepository userRepository;
     public void saveUser(User user) {
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRoles(Arrays.asList("USER"));
+            if(user.getRoles()==null ||  user.getRoles().isEmpty()) {
+                user.setRoles(Arrays.asList("USER"));
+            }
             userRepository.save(user);
         }catch (Exception e){
       log.error("Error saving user",e);

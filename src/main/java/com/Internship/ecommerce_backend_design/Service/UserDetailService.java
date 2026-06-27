@@ -15,17 +15,19 @@ public class UserDetailService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByUserName(username);
-        if(user != null){
-            return org.springframework.security.core.userdetails.User.builder()
-                    .username(user.getUserName())
-                    .password(user.getPassword())  // already hashed
-                    .roles(user.getRoles().toArray(new String[0]))
-                    .build();
-        }
-        throw new UsernameNotFoundException("User not found: " + username);
-    }
+    public UserDetails loadUserByUsername(String username){
 
+        User user =
+                userRepository.findByUserName(username);
+        return org.springframework.security.core.userdetails.User
+                .builder()
+                .username(user.getUserName())
+                .password(user.getPassword())
+                .roles(
+                        user.getRoles()
+                                .toArray(new String[0])
+                )
+                .build();
+    }
 
 }

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Products</title>
+
+    <link rel="stylesheet"
+          href="css/admin-products.css">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <header class="header">
+
+        <h1 id="categoryTitle">
+            Products
+        </h1>
+
+        <div class="header-buttons">
+
+            <button
+                    class="add-btn"
+                    onclick="openAddModal()">
+                + Add Product
+            </button>
+
+            <button
+                    class="logout-btn"
+                    onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- Search -->
+
+    <div class="search-container">
+
+        <input
+                type="text"
+                id="search"
+                placeholder="Search Product..."
+                onkeyup="searchProducts()">
+
+    </div>
+
+    <!-- Products -->
+
+    <div id="products">
+
+        <!-- JavaScript loads cards here -->
+
+    </div>
+
+
+
+
+
+    <!-- ===========================
+            Add / Update Modal
+    ============================ -->
+
+    <div
+            id="productModal"
+            class="modal">
+
+        <div class="modal-content">
+
+            <span
+                    class="close"
+                    onclick="closeModal()">
+                &times;
+            </span>
+
+            <h2 id="modalTitle">
+                Add Product
+            </h2>
+
+            <input
+                    type="text"
+                    id="name"
+                    placeholder="Product Name">
+
+            <input
+                    type="number"
+                    id="price"
+                    placeholder="Price">
+
+            <input
+                    type="number"
+                    id="stock"
+                    placeholder="Stock">
+
+            <textarea
+                    id="description"
+                    placeholder="Description"></textarea>
+
+            <input
+                    type="text"
+                    id="image1"
+                    placeholder="Image 1">
+
+            <input
+                    type="text"
+                    id="image2"
+                    placeholder="Image 2">
+
+            <button
+                    id="saveButton"
+                    onclick="saveProduct()">
+                Save Product
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- ===========================
+            Delete Modal
+    ============================ -->
+
+    <div
+            id="deleteModal"
+            class="modal">
+
+        <div
+                class="delete-box">
+
+            <h2>
+                Delete Product
+            </h2>
+
+            <p>
+
+                Are you sure you want to delete this product?
+
+            </p>
+
+            <div class="delete-buttons">
+
+                <button
+                        class="cancel-btn"
+                        onclick="closeDeleteModal()">
+
+                    Cancel
+
+                </button>
+
+                <button
+                        class="delete-btn"
+                        onclick="deleteProduct()">
+
+                    Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- Loading -->
+
+    <div
+            id="loader"
+            class="loader">
+
+        Loading...
+
+    </div>
+
+
+
+
+
+    <script src="js/api.js"></script>
+
+    <script src="js/admin-products.js"></script>
+
+</body>
+
+</html>

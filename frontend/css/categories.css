@@ -1,0 +1,229 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+    color:#333;
+}
+
+/* ===========================
+   Header
+=========================== */
+
+header{
+    background:#2563eb;
+    color:white;
+    padding:20px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+header h2{
+    font-size:28px;
+    font-weight:600;
+}
+
+header button{
+    background:white;
+    color:#2563eb;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+header button:hover{
+    background:#e5e7eb;
+}
+
+/* ===========================
+   Page Title
+=========================== */
+
+h1{
+    text-align:center;
+    margin:40px 0;
+    font-size:40px;
+    color:#1f2937;
+    position:relative;
+}
+
+h1::after{
+    content:"";
+    display:block;
+    width:90px;
+    height:4px;
+    background:#2563eb;
+    margin:12px auto;
+    border-radius:5px;
+}
+
+/* ===========================
+   Category Grid
+=========================== */
+
+#categories{
+    width:90%;
+    max-width:1300px;
+    margin:0 auto 50px;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+}
+
+/* ===========================
+   Card
+=========================== */
+
+.card{
+
+    background:white;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    transition:.35s;
+}
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 18px 35px rgba(37,99,235,.18);
+
+}
+
+.card h2{
+
+    text-align:center;
+
+    padding:18px;
+
+    color:#1e3a8a;
+
+    font-size:24px;
+
+    font-weight:600;
+}
+
+.card img{
+
+    width:100%;
+
+    height:450px;
+    border-radius: 18px;
+    object-fit:cover;
+
+    padding:20px;
+
+    transition:.35s;
+}
+
+.card:hover img{
+
+    transform:scale(1.08);
+
+}
+/*
+.card::before{
+
+    content:"Category";
+
+    display:inline-block;
+
+    margin:18px 0 0 18px;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:6px 14px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    letter-spacing:.5px;
+}
+*/
+/* ===========================
+   Footer
+=========================== */
+
+footer{
+
+    margin-top:60px;
+
+    background:#1f2937;
+
+    color:white;
+
+    text-align:center;
+
+    padding:20px;
+
+    font-size:15px;
+}
+
+/* ===========================
+   Tablet
+=========================== */
+
+@media(max-width:992px){
+
+    #categories{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:600px){
+
+    h1{
+
+        font-size:32px;
+
+    }
+
+    #categories{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    header{
+
+        flex-direction:column;
+
+        gap:15px;
+
+        text-align:center;
+
+    }
+
+}

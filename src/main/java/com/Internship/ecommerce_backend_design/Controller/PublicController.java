@@ -3,6 +3,7 @@ package com.Internship.ecommerce_backend_design.Controller;
 import com.Internship.ecommerce_backend_design.Dto.LogInDto;
 import com.Internship.ecommerce_backend_design.Dto.SignUpDto;
 import com.Internship.ecommerce_backend_design.Entity.User;
+import com.Internship.ecommerce_backend_design.Repository.UserRepository;
 import com.Internship.ecommerce_backend_design.Service.UserService;
 import com.Internship.ecommerce_backend_design.Utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,8 @@ UserService userService;
     AuthenticationManager authenticationManager;
     @Autowired
     JwtUtils  jwtUtils;
+    @Autowired
+    UserRepository userRepository;
     public PublicController(){
         System.out.println("PUBLIC CONTROLLER CREATED");
     }
@@ -33,16 +38,34 @@ UserService userService;
     public ResponseEntity<?> signup(@RequestBody SignUpDto user){
         User newUser=new User();
         newUser.setEmail(user.getEmail());
-        newUser.setPassword(user.getPassword());
+        newUser.setUserName(user.getUserName());
         newUser.setPassword(user.getPassword());
         userService.saveUser(newUser);
         return new ResponseEntity<>(HttpStatus.CREATED) ;
     }
+
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody LogInDto user){
-        authenticationManager.authenticate(new
-                UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword()));
-        String token = jwtUtils.generateToken(user.getUserName());
-        return new ResponseEntity<>(token,HttpStatus.OK);
+        Authentication authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                user.getUserName(),
+                                user.getPassword()
+                        )
+                );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        User dbUser = userRepository.findByUserName(user.getUserName());
+                if(dbUser==null) {
+                    throw new RuntimeException("User not found");
+                }
+
+        String token = jwtUtils.generateToken(
+                dbUser.getUserName(),
+                dbUser.getRoles()
+        );
+
+        return ResponseEntity.ok(token);
     }
 }

@@ -1,0 +1,282 @@
+/* =========================
+   Google Font
+========================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+
+body{
+
+    background:#f4f6f9;
+
+    min-height:100vh;
+
+    padding:40px;
+
+}
+
+
+
+/* =========================
+   Header
+========================= */
+
+
+.header{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+
+    margin-bottom:35px;
+
+}
+
+
+.header h1{
+
+    color:#1f2937;
+
+    font-size:34px;
+
+}
+
+
+
+/* =========================
+   Logout Button
+========================= */
+
+
+
+.logout-btn{
+
+    position:absolute;
+
+    right:0;
+
+    background:#dc2626;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 25px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+
+.logout-btn:hover{
+
+    background:#b91c1c;
+
+}
+
+
+
+/* =========================
+   Page Heading
+========================= */
+
+
+h2{
+
+    color:#374151;
+
+    margin-bottom:25px;
+
+}
+
+
+
+/* =========================
+   Categories Grid
+========================= */
+
+
+#categories{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:25px;
+
+}
+
+
+
+/* =========================
+   Category Card
+========================= */
+
+
+.card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    cursor:pointer;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+    min-height:380px;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+.card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 15px 35px rgba(37,99,235,.18);
+
+}
+
+
+
+/* =========================
+   Category Name Top
+========================= */
+
+
+.card h3{
+
+    order:1;
+
+    text-align:center;
+
+    color:#1e3a8a;
+
+    font-size:25px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+/* =========================
+   Category Image
+========================= */
+
+
+.card img{
+
+    order:2;
+
+    width:100%;
+
+    height:260px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    flex:1;
+
+}
+
+
+
+/* =========================
+   Responsive
+========================= */
+
+
+@media(max-width:1200px){
+
+    #categories{
+
+        grid-template-columns:repeat(3,1fr);
+
+    }
+
+}
+
+
+
+@media(max-width:900px){
+
+    #categories{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+
+
+@media(max-width:600px){
+
+
+    body{
+
+        padding:20px;
+
+    }
+
+
+    .header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+
+    #categories{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .card{
+
+        min-height:340px;
+
+    }
+
+
+    .card img{
+
+        height:220px;
+
+    }
+
+}

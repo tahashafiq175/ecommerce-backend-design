@@ -1,75 +1,110 @@
 package com.Internship.ecommerce_backend_design.Controller;
 
+
 import com.Internship.ecommerce_backend_design.Entity.ProductDetails;
-import com.Internship.ecommerce_backend_design.Repository.ProductDetailRepository;
 import com.Internship.ecommerce_backend_design.Service.ProductDetailService;
 import com.Internship.ecommerce_backend_design.Service.ProductService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+
 @RequestMapping("/admin")
 @RestController
 public class AdminController {
+
+
     @Autowired
     private ProductDetailService productDetailService;
     @Autowired
     private ProductService productService;
     @PostMapping("/postDetail/{Category}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addProductDetails(
             @RequestBody ProductDetails productDetails,
-            @PathVariable String Category){
+            @PathVariable String Category
+    ){
         productDetailService.saveProductDetails(productDetails);
+
         productService.saveProduct(productDetails,Category);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
 
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body("Product Added Successfully");
+    }
     @DeleteMapping("/DeleteDetail/{Id}")
-    public ResponseEntity<?> deleteProductDetails(@PathVariable ObjectId Id){
-        Optional<ProductDetails> detailsbyId = productDetailService.getDetailsbyId(Id);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> deleteProductDetails(
+            @PathVariable ObjectId Id
+    ){
+        Optional<ProductDetails> detailsbyId =
+                productDetailService.getDetailsbyId(Id);
         if(detailsbyId.isPresent()){
+            productService.deleteDetail(Id);
             productDetailService.deleteUser(Id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity
+                    .ok()
+                    .body("Product Deleted Successfully");
         }
-        return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body("Product Not Found");
     }
-
     @PutMapping("/ChangeDetail/{Id}")
-    public ResponseEntity<?> changeUserDetails(@PathVariable ObjectId Id,@RequestBody ProductDetails changeDetails){
-        Optional<ProductDetails> optionalProductDetails = productDetailService.getDetailsbyId(Id);
-       if(optionalProductDetails.isPresent()) {
-           ProductDetails byId=optionalProductDetails.get();
-           if (changeDetails.getCategory() != null &&
-                   !changeDetails.getCategory().isBlank()) {
-               byId.setCategory(changeDetails.getCategory());
-           }
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> changeProductDetails(
+            @PathVariable ObjectId Id,
+            @RequestBody ProductDetails changeDetails)
+    {
+        Optional<ProductDetails> optionalProductDetails =
+                productDetailService.getDetailsbyId(Id);
+        if(optionalProductDetails.isPresent()){
+            ProductDetails product =
+                    optionalProductDetails.get();
+            if(changeDetails.getCategory()!=null &&
+                    !changeDetails.getCategory().isBlank()){
 
-           if (changeDetails.getName() != null &&
-                   !changeDetails.getName().isBlank()) {
-               byId.setName(changeDetails.getName());
-           }
+                product.setCategory(
+                        changeDetails.getCategory()
+                );
+            }if(changeDetails.getName()!=null &&
+                    !changeDetails.getName().isBlank()){
 
-           if (changeDetails.getDescription() != null &&
-                   !changeDetails.getDescription().isBlank()) {
-               byId.setDescription(changeDetails.getDescription());
-           }
+                product.setName(
+                        changeDetails.getName()
+                );
+            }if(changeDetails.getDescription()!=null &&
+                    !changeDetails.getDescription().isBlank()){
 
-           if (changeDetails.getPrice() != null) {
-               byId.setPrice(changeDetails.getPrice());
-           }
+                product.setDescription(
+                        changeDetails.getDescription()
+                );
+            }
+            if(changeDetails.getPrice()!=null){
 
-           if (changeDetails.getStock() != null) {
-               byId.setStock(changeDetails.getStock());
-           }
+                product.setPrice(
+                        changeDetails.getPrice()
+                );
+            }
+            if(changeDetails.getStock()!=null){
 
-           productDetailService.saveProductDetails(byId);
-           return new ResponseEntity<>(HttpStatus.OK);
-       }
-       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                product.setStock(
+                        changeDetails.getStock()
+                );
+            }
+            productDetailService.saveProductDetails(product);
+            return ResponseEntity
+                    .ok()
+                    .body("Product Updated Successfully");
+
+        }return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body("Product Not Found");
     }
+
 }

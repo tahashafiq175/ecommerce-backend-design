@@ -13,8 +13,6 @@ import java.util.Optional;
 public class ProductDetailService {
     @Autowired
     private ProductDetailRepository productDetailRepository;
-    @Autowired
-    private ProductService productService;
     public List<ProductDetails> getAllDetails() {
         List<ProductDetails> all = productDetailRepository.findAll();
         return all;
@@ -22,10 +20,10 @@ public class ProductDetailService {
 
     public Optional<ProductDetails> getDetailsbyId(ObjectId Id) {
         Optional<ProductDetails> byId = productDetailRepository.findAllById(Id);
-        if(!byId.isEmpty()){
+        if(byId.isPresent()){
             return byId;
         }
-        return null;
+        return Optional.empty();
     }
 
     public void saveProductDetails(ProductDetails productDetails) {

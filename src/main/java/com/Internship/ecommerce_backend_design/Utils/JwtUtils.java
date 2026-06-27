@@ -9,6 +9,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.PublicKey;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 @Component
 public class JwtUtils {
@@ -53,8 +54,12 @@ public class JwtUtils {
         return extractAllClaims(token).getExpiration();
     }
 
-    public String generateToken(String username) {
-        Map<String, Object> claims = new HashMap<>();
+    public String generateToken(String username, List<String> roles) {
+
+        Map<String,Object> claims = new HashMap<>();
+
+        claims.put("roles",roles);
+
         return createToken(claims, username);
     }
 }
